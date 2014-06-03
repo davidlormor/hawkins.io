@@ -8,7 +8,7 @@ maximizes long term maintainability and feature deliverability for a
 certain class of applications. It covers effective boundary use,
 application roles, and design patterns to create an architecture that
 separates the core business logic from the delivery mechanisms and
-external concerns. Problems with current approaches highlighted as
+external concerns. Problems with current approaches are highlighted as
 well. It finishes with a migration strategy for existing applications.
 
 --------------------------------------------------------------------
@@ -36,7 +36,7 @@ correctly. Applications routinely collapse under their technical debt.
 Applications become impossible to maintain. Iterations become longer,
 estimates become impossible, and developer happiness
 plummets. In the worst case, starting over is the only way to repay
-the debt. This is an unfortunate but avodiable. This
+the debt. This is an unfortunate but avoidable. This
 happens when engineering teams (for whatever reason) decide
 to accumulate more technical debt. The decision usually comes from
 business requirements and short delivery dates. Teams must actively
@@ -46,12 +46,12 @@ most delicate time in an application's life time. Just like real life
 childhood, the decisions (good, bad, and ugly) made in the formative
 years have a strong lasting impact. The signs of excellent parenting
 live on and people grow into well adjusted individuals. Horrible or
-abusive parenting often leave scars for life which are difficult or
+abusive parenting often leaves scars for life which are difficult or
 impossible to heal without serious effort. This paper is about making
 technical investment in software architecture from time zero to raise a
-happy, mature, and maintainable programs. Children need proper
+happy, mature, and maintainable program. Children need proper
 nourishment from the beginning. Applications require proper separation
-of concerns, boundaries, objects roles, and design patterns.
+of concerns, boundaries, object roles, and design patterns.
 
 Architecting applications means constructing boundaries, defining
 interactions, decoupling, and arranging objects in extendable ways.
@@ -71,14 +71,14 @@ A use case describes something a system does. It is a unit of work. A
 CRM (Customer Relationship Management) system has use cases like
 “create customer”, “invoice customer”, or “contact customer.” A
 classifieds site like Craigslist has uses cases such as “post ad” or
-“contact seller.” Use cases are things users can do. They are a
+“contact seller.” Use cases are things a user can do. They are a
 systems's core. Use cases have alternate flows and are often composed
 into more complex flows. A CRM may want to add a customer then contact
 them. This is possible when implemented correctly and down right
 painful when not. Use cases are usually not straight forward. They
 must interact with many other entities in the system. They are
 conductors orchestrating the interaction between all the other
-entities in the system. A use cases takes in some form of input and
+entities in the system. A use case takes in some form of input and
 takes appropriate action. The input is examined and some records are
 created or modified. Perhaps some external state is modified (like
 talking to an external service or a RDMS). Eventually the user is
@@ -94,7 +94,7 @@ is done and we can get back to the real meat of the problem. Handling
 user input is actually extremely important to an application’s long
 term health. Proper input checking makes code more confident. Avdi
 Grimm used this term in his book "Confident Ruby".  *Insert Avdi Quote
-here*. He describes unconfident code as between too focused on edge
+here*. He describes unconfident code as being too focused on edge
 cases and input handling and that happening in many parts of the code.
 Confident code does not have this problem. It knows what it has and
 what to do. Proper input sanitization makes this possible. User input
@@ -125,14 +125,14 @@ entering the body. Luckily our skin is self healing in a way.
 Unfortunately our software is not as smart. Software engineers must
 respect this boundary and actively fight to maintain it’s integrity.
 
-Once the use case has the require input it coordinates interaction
+Once the use case has the required input, it coordinates interaction
 between the other entities in the system. These are model objects most
 of the time. A model represents a business object. A CRM will have
 many models, most notably a customer. There will also be a user,
 company, deal, task, meeting, and invoice among others. Models are the
 nouns in the problem domain.  Models are for data.  A customer will
 have a name, company, email, and an office address. The model
-encapsulates all the semantics and exposed them in a programmatic way
+encapsulates all the semantics and exposes them in a programmatic way
 to other objects. Use cases usually need to persist model data. What
 good is a customer in a CRM if it cannot be retrieved later? Zero.
 This leads into the very important topic of persistence.
@@ -175,7 +175,7 @@ repository pattern. Matin Fowler describes the repository pattern in
 Fowler does not mention how they are persisted and that is very
 important. A boundary is created between how the data is accessed and
 how it is stored. This is very useful in practice. First of all it
-allows the two abstractions to very independently. The public
+allows the two abstractions to vary independently. The public
 interface to the collection can evolve to include access control and
 more query methods. The other side can evolve to store data in an
 optimal way for each use case. Consider two retrieval use cases. The
@@ -186,8 +186,8 @@ happens, but it does. This boundary pays dividends in so many places.
 The previous example was extracted from a real world use case where
 performance mattered and the data store was tailored to each use case.
 This pays off big in test suites because by definition one side of the
-boundary can be replaced or dropped. In the tests suite there is an
-option to use an in memory or a null implementation.  Applications
+boundary can be replaced or dropped. In the test suite, there is an
+option to use an in-memory or a null implementation.  Applications
 suffer from slow test suites as they grow older. Using a real
 persistence implementation causes most of the slow down. Unfortunately
 most applications are not architected with this boundary in mind.
@@ -196,12 +196,12 @@ very hard to retrofit.  This is a choice that will live on through an
 applications’s life span. It is important to think about technical
 investment and make the correct decisions up front. 
 
-This is hard change to make because it fundamentally reverses how
+This is a hard change to make because it fundamentally reverses how
 application’s are commonly structured. Uncle Bob speaks about his
 personal experience in his talk “Architecture, The Lost Years”. He
-provides a case study about INSERT PROJECT NAME HERE. He says that
-they planned on using a database early on in the process. Instead they
-decided not to and stick with handling persistence in a different way.
+provides a case study about FitNesse. He says that
+they planned on using a database early on in the process. Instead, they
+decided not to and stuck with handling persistence in a different way.
 As it turns out a database wasn’t an actual requirement. They were
 able to ship the product without using a database and instead used
 more simple mechanisms. “They deferred the decision off the edge of
@@ -373,7 +373,7 @@ of values. This is easy to implement.
 
 Is this correct though? The previous code works well when the input
 values are controlled. However this class is exposed to the outside
-world where input is not controller. What if `assigned_to` was a
+world where input is not controlled. What if `assigned_to` was a
 `Time` instance and `due_date` was a `User` instance? If that happens
 the class would fail it's single responsibility. The form must gaurd
 against such conditions. A test is perfect for describing
@@ -442,7 +442,7 @@ proper `due_date=` method on `TodoForm` makes the test pass.
     end
 
 This may seem like an anti-pattern. It is a bit unsettling, but very
-useful.  The form itself can be reused in different context.s It can
+useful.  The form itself can be reused in different contexts. It can
 parse `Time` instances from strings, or integers. Strings will come
 from web forms and assign correctly. Seconds may come from some random
 library. The point is to illustrate input conversion and collection.
@@ -523,7 +523,7 @@ reveals itself. The use case uses the form to create a todo.
 The test documents the interface. A use case takes two arguments: the
 form and the current user. `CreateTodo#run!` executes the use case.
 The test does not include any assertions on the use case's output.
-This is problem because the test does not provide real value in its
+This is a problem because the test does not provide real value in its
 current form. The test's naem is `test_should_save_the_new_todo`. This
 implies persistance.
 
@@ -706,7 +706,7 @@ state and it must kept as close to the boundary as possible. It cannot
 leak down into other objects.
 
 How should this be implemented? The publish/subscribe pattern works
-well here. The model is only object that knows if it has been
+well here. The model is the only object that knows if it has been
 reassigned. The model publishes an event when that happens. The use
 case can attach an observer along with state and pass it along.
 
@@ -791,7 +791,7 @@ Next for the model.
 Astute readers will notice that implementation is stateless. The use
 case is the only object that contains state. It connects the stateful
 and stateless parts of the application. In order for this to the work,
-the use case takes in the current user is and passes it along to
+the use case takes in the current user and passes it along to
 objects that need it. The use case is still failing at this point.
 `CreateTodo` must be modified to complete it.
 
@@ -1334,7 +1334,7 @@ qualities. `TodoForm`'s implementation could be replaced completely
 by Virtus.
 
 Virtus is an extraction of the ROM property interface. It provides a
-simple and elegant for describing what attributes a class should have.
+simple and elegant DSL for describing what attributes a class should have.
 It also provides conversions and coericions (such as strings to
 numbers, or strings to a time).  Writer methods can be redefined for
 application specific functionality (using an the repo to look up an
